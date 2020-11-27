@@ -4,7 +4,8 @@ let employeePayrollList;
 window.addEventListener('DOMContentLoaded',(event)=>
     {
         employeePayrollList = GetEmployeeDataLocalStorage();
-        CreateEmployeeTable();
+        CreateEmployeeTable();   
+        localStorage.removeItem('EditEmployee');
     }
 );
 
@@ -58,7 +59,7 @@ function GetDate(startDate)
     return date.getDate()+" "+month[date.getMonth()]+" "+date.getFullYear();
 }
 
-//Remove employee from table
+// Remove employee from table
 function remove(node)
 {
     let empData = employeePayrollList.find(emp=>emp._id == node.id);
@@ -68,82 +69,13 @@ function remove(node)
     CreateEmployeeTable();
 }
 
-/*
-const createJsonFile = () =>
+// Update employee details
+function update(node)
 {
-    let empPayrollList = [
-        
-        {
-            _name:'Srujana Valavala',
-            _gender:'Female',
-            _department:['Finance','Sales'],
-            _salary:'350000',
-            _startDate:'18 Sep 2020',
-            _note:'',
-            _profilePic:'../assets/ProfilePics/Ellipse -7.png',
-            _id:new Date().getTime()
-        },
-        {
-            _name:'Devrath Dixit',
-            _gender:'Male',
-            _department:['HR','Sales','Finance'],
-            _salary:'500000',
-            _startDate:'24 Oct 2019',
-            _note:'',
-            _profilePic:'../assets/ProfilePics/Ellipse -5.png',
-            _id:new Date().getTime()
-        },
-        {
-            _name:'Sumanjali Gidda',
-            _gender:'Female',
-            _department:['Sales'],
-            _salary:'450000',
-            _startDate:'28 Jan 2018',
-            _note:'',
-            _profilePic:'../assets/ProfilePics/Ellipse -1.png',
-            _id:new Date().getTime()
-        },
-        {
-            _name:'Tony Stark',
-            _gender:'Male',
-            _department:['Engineer','Analyst','HR'],
-            _salary:'250000',
-            _startDate:'12 Jul 2019',
-            _note:'',
-            _profilePic:'../assets/ProfilePics/Ellipse -2.png',
-            _id:new Date().getTime()
-        },
-        {
-            _name:'Steve Rogers',
-            _gender:'Male',
-            _department:['Logistics'],
-            _salary:'350000',
-            _startDate:'16 Dec 2017',
-            _note:'',
-            _profilePic:'../assets/ProfilePics/Ellipse -8.png',
-            _id:new Date().getTime()
-        },
-        {
-            _name:'Sowjanya Buddaraju',
-            _gender:'Female',
-            _department:['HR','Analyst'],
-            _salary:'350000',
-            _startDate:'22 May 2019',
-            _note:'',
-            _profilePic:'../assets/ProfilePics/Ellipse -4.png',
-            _id:new Date().getTime()
-        },
-        {
-            _name:'Ravi Yeluri',
-            _gender:'Female',
-            _department:['HR'],
-            _salary:'500000',
-            _startDate:'18 Feb 2016',
-            _note:'',
-            _profilePic:'../assets/ProfilePics/Ellipse -3.png',
-            _id:new Date().getTime()
-        }
-    ]
-    return empPayrollList;
+    let empData = employeePayrollList.find(emp=>emp._id == node.id);
+    if(employeePayrollData != undefined)
+    {
+        localStorage.setItem('EditEmployee',JSON.stringify(empData));
+        window.location.replace("../pages/PayrollForm.html");
+    }
 }
-*/

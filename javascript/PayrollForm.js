@@ -1,3 +1,6 @@
+let isUpdate = false;
+let empPayrollObject = {};
+
 window.addEventListener('DOMContentLoaded', (event) => 
 {
     // Event listener for Name
@@ -29,8 +32,48 @@ window.addEventListener('DOMContentLoaded', (event) =>
     {
         output.textContent = salary.value; 
     });
+    
+    CheckForUpdate();
 });
 
+// Check for update
+function CheckForUpdate()
+{
+    let empUpdate = localStorage.getItem('EditEmployee');
+    isUpdate = empUpdate?true:false;
+    if(!isUpdate) return;
+    empPayrollObject = JSON.parse(empUpdate);
+    SetForm();
+}
+
+//Set the form if update is true
+function SetForm()
+{
+    document.querySelector('#name').value = empPayrollObject._name;
+    document.querySelector('.name-error').textContent = '';
+    SetSelectedValues('[name=profile]',empPayrollObject._profilePhoto);
+    SetSelectedValues('[name=gender]',empPayrollObject._gender);
+    SetSelectedValues('[name=department]',empPayrollObject._department);
+    document.querySelector('#salary').value = empPayrollObject._salary;
+    document.querySelector('#notes').value = empPayrollObject._notes;
+    SetDate(empPayrollObject._startDate);
+}
+
+function SetSelectedValues(property,value)
+{
+    document.querySelectorAll(property).forEach(item=>
+    {
+        if(Array.isArray(value))
+        {
+            if(value.includes(item.value))
+                item.checked = true;
+        }
+        else if(item.value === value)
+        {
+            item.checked = true;
+        }
+    });    
+}
 
 // Display appropriate value of salary
 function ResetValue()
