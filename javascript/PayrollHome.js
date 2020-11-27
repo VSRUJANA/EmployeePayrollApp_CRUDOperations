@@ -72,10 +72,7 @@ function remove(node)
 // Update employee details
 function update(node)
 {
-    let empData = employeePayrollList.find(emp=>emp._id == node.id);
-    if(employeePayrollData != undefined)
-    {
-        localStorage.setItem('EditEmployee',JSON.stringify(empData));
-        window.location.replace("../pages/PayrollForm.html");
-    }
+    let empData = employeePayrollList.find(emp => emp._id == node.id)
+    localStorage.setItem('EditEmployee', JSON.stringify(empData));
+    window.location.replace("../pages/PayrollForm.html");
 }
